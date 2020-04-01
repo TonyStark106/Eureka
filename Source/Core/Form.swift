@@ -150,7 +150,7 @@ public final class Form {
     var rowObservers = [String: [ConditionType: [Taggable]]]()
     var rowsByTag = [String: BaseRow]()
     var tagToValues = [String: Any]()
-    lazy var kvoWrapper: KVOWrapper = { [unowned self] in return KVOWrapper(form: self) }()
+    lazy var kvoWrapper: KVOWrapper = { [weak self] in return KVOWrapper(form: self!) }()
 }
 
 extension Form: Collection {
@@ -352,10 +352,10 @@ extension Form {
         }
         kvoWrapper.sections.insert(section, at: formIndex == NSNotFound ? 0 : formIndex + 1 )
     }
-	
-	var containsMultivaluedSection: Bool {
-		return kvoWrapper._allSections.contains { $0 is MultivaluedSection }
-	}
+    
+    var containsMultivaluedSection: Bool {
+        return kvoWrapper._allSections.contains { $0 is MultivaluedSection }
+    }
 
     func getValues(for rows: [BaseRow]) -> [String: Any?] {
         return rows.reduce([String: Any?]()) {

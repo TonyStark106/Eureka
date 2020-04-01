@@ -204,7 +204,7 @@ open class Section {
     open func rowsHaveBeenReplaced(oldRows: [BaseRow], newRows: [BaseRow], at: IndexSet) {}
 
     // MARK: Private
-    lazy var kvoWrapper: KVOWrapper = { [unowned self] in return KVOWrapper(section: self) }()
+    lazy var kvoWrapper: KVOWrapper = { [weak self] in return KVOWrapper(section: self!) }()
 
     var headerView: UIView?
     var footerView: UIView?
